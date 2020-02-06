@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "808979148002",
+    "firebase_url": "https://bookarraytest-728e2.firebaseio.com",
+    "project_id": "bookarraytest-728e2",
+    "storage_bucket": "bookarraytest-728e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808979148002:android:90a88b1541be85275582bb",
+        "android_client_info": {
+          "package_name": "com.e.bookarraytest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808979148002-iidepu8s6claikbog1e8kn8cmgeg4av0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFlsHaV1I6OdqG3btQWIkSFBhjWdaR0Vc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808979148002-iidepu8s6claikbog1e8kn8cmgeg4av0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
