@@ -2,13 +2,11 @@ package com.e.bookarraytest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -29,7 +27,7 @@ public class NewBookActivity extends AppCompatActivity {
         mTitle_editText = (EditText) findViewById(R.id.title_editText);
         mISBN_editText = (EditText) findViewById(R.id.isbn_editText);
         mBook_Categories_spinner = (Spinner) findViewById(R.id.book_category_spinner);
-        mAdd_btn = (Button)findViewById(R.id.add_button);
+        mAdd_btn = (Button)findViewById(R.id.update_button);
         mBack_btn = (Button) findViewById(R.id.back_button);
 
         mAdd_btn.setOnClickListener(new View.OnClickListener() {

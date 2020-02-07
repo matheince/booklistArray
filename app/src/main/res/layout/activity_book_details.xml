@@ -7,6 +7,8 @@
     android:orientation="vertical"
     tools:context=".NewBookActivity">
 
+
+
     <EditText
         android:id="@+id/author_editText"
         android:layout_width="200dp"
@@ -52,16 +54,26 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+
+        android:text="@string/common_google_play_services_update_button" />
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
 
-        android:text="Add" />
+        android:text="Delete" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Back"  />
+        android:layout_marginBottom="60dp"
+
+
+        android:text="Back" />
+
 </LinearLayout>

@@ -1,7 +1,9 @@
 package com.e.bookarraytest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -40,6 +42,21 @@ public class Recyclerview_Config {
             mAuthor = (TextView) itemView.findViewById(R.id.author_txtview);
             mCategory = (TextView) itemView.findViewById(R.id.category_txtview);
             mISBN = (TextView) itemView.findViewById(R.id.isbn_txtview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, BookDetailsActivity.class);
+                    intent.putExtra("key", key);
+                    intent.putExtra("author", mAuthor.getText().toString());
+                    intent.putExtra("title", mTitle.getText().toString());
+                    intent.putExtra("category", mCategory.getText().toString());
+                    intent.putExtra("isbn",mISBN.getText().toString());
+                    mContext.startActivity(intent);
+
+
+                }
+            });
 
         }
 
