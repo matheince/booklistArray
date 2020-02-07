@@ -4,5 +4,5 @@
 
     <item
         android:id="@+id/new_book"
-        android:title="New Book" />
+        android:title="신입생" />
 </menu>

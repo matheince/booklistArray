@@ -11,31 +11,31 @@
         android:id="@+id/author_editText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
 
-        android:hint="Author"
-        android:inputType="textPersonName"/>
+        android:hint="이름"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/isbn_editText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
 
-        android:hint="isbn"
+        android:hint="전화번호"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/title_editText"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
 
 
-        android:hint="title"
+        android:hint="예명"
         android:inputType="textPersonName" />
 
     <Spinner

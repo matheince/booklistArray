@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="book_categories">
-        <item>Software</item>
-        <item>Network</item>
-        <item>Electronics</item>
-        <item>Others</item>
+
+        <item>팩토학생</item>
+        <item>초등학생</item>
+        <item>예비중학생</item>
+        <item>중학생</item>
+        <item>고등학생</item>
+        <item>과학-중학생</item>
+        <item>과학-고등학생</item>
     </string-array>
 </resources>
