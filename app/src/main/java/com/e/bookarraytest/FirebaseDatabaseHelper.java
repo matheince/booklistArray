@@ -2,6 +2,7 @@ package com.e.bookarraytest;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,5 +52,15 @@ public class FirebaseDatabaseHelper {
             }
         });
     }
+    public void addBook(Book book, final DataStatus dataStatus){
+        String key = mReference.push().getKey();
+        mReference.child(key).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                dataStatus.DataIsInserted();
+            }
+        });
 
+
+    }
 }
