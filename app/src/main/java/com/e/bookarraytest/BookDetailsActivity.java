@@ -78,8 +78,8 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsUpdated() {
-                        Toast.makeText(BookDetailsActivity.this, "Book record has been" +
-                                " updated successfully", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BookDetailsActivity.this, "학생자료를" +
+                                " 성공적으로 갱신하였습니다!", Toast.LENGTH_LONG).show();
 
                     }
 
@@ -113,8 +113,8 @@ public class BookDetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsDeleted() {
-                        Toast.makeText(BookDetailsActivity.this, "Book record has been" +
-                                "deleted successfully!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(BookDetailsActivity.this, "학생자료를" +
+                                " 성공적으로 삭제했습니다!", Toast.LENGTH_LONG).show();
                         finish();
                         return;
 

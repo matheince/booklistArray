@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@drawable/gradient_back2"
     android:orientation="vertical"
     tools:context=".NewBookActivity">
 
@@ -54,7 +54,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
 
-        android:text="Add" />
+        android:text="추가" />
 
     <Button
         android:id="@+id/back_button"
@@ -63,5 +63,5 @@
         android:layout_marginBottom="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Back"  />
+        android:text="뒤로"  />
 </LinearLayout>

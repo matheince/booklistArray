@@ -1,10 +1,10 @@
 package com.e.bookarraytest;
 
 public class Book {
-    private String title;
-    private String author;
-    private String isbn;
-    private String category_name;
+    private String title; // 학생이름
+    private String author;  // 학부모 예명
+    private String isbn;    // 전화번호
+    private String category_name; // 학생구분
 
     public Book() {
     }

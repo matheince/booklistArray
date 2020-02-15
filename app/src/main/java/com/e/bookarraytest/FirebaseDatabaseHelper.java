@@ -22,13 +22,10 @@ public class FirebaseDatabaseHelper {
         void DataIsInserted();
         void DataIsUpdated();
         void DataIsDeleted();
-
     }
-
     public FirebaseDatabaseHelper(){
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference("books");
-
     }
     public void readBooks(final DataStatus dataStatus){
         mReference.addValueEventListener(new ValueEventListener() {
@@ -42,8 +39,6 @@ public class FirebaseDatabaseHelper {
                     books.add(book);
                 }
                 dataStatus.DataIsLoaded(books, keys);
-
-
             }
 
             @Override
@@ -60,7 +55,6 @@ public class FirebaseDatabaseHelper {
                 dataStatus.DataIsInserted();
             }
         });
-
 
     }
     public void updateBook(String key, Book book, final DataStatus dataStatus){

@@ -2,6 +2,7 @@ package com.e.bookarraytest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -47,10 +48,8 @@ public class NewBookActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsInserted() {
-                        Toast.makeText(NewBookActivity.this, "The book record has" +
-                                " been inserted successfully", Toast.LENGTH_LONG).show();
-
-
+                        Toast.makeText(NewBookActivity.this, "학생자료를" +
+                                " 성공적으로 추가하였습니다!", Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -66,7 +65,8 @@ public class NewBookActivity extends AppCompatActivity {
                 mBack_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finish();return;
+                        finish();
+                        return;
 
                     }
                 });

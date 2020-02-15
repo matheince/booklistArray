@@ -16,7 +16,6 @@ import java.util.List;
 
 public class Recyclerview_Config {
     private Context mContext;
-
     private BooksAdapter mBooksAdapter;
 
     public void setConfig(RecyclerView recyclerView, Context context, List<Book> books, List<String> keys){
@@ -24,8 +23,6 @@ public class Recyclerview_Config {
         mBooksAdapter = new BooksAdapter(books, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mBooksAdapter);
-
-
     }
 
     class BookItemView extends RecyclerView.ViewHolder {
@@ -53,8 +50,6 @@ public class Recyclerview_Config {
                     intent.putExtra("category", mCategory.getText().toString());
                     intent.putExtra("isbn",mISBN.getText().toString());
                     mContext.startActivity(intent);
-
-
                 }
             });
 
@@ -67,7 +62,6 @@ public class Recyclerview_Config {
             mISBN.setText(book.getIsbn());
 
             this.key = key;
-
         }
     }
     class BooksAdapter extends RecyclerView.Adapter<BookItemView>{
@@ -78,18 +72,15 @@ public class Recyclerview_Config {
             this.mKeys = mKeys;
 
         }
-
         @NonNull
         @Override
         public BookItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new BookItemView(parent);
         }
-
         @Override
         public void onBindViewHolder(@NonNull BookItemView holder, int position) {
             holder.bind(mBookList.get(position), mKeys.get(position));
         }
-
         @Override
         public int getItemCount() {
             return mBookList.size();
