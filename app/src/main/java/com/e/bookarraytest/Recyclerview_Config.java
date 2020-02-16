@@ -1,5 +1,6 @@
 package com.e.bookarraytest;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -43,13 +44,16 @@ public class Recyclerview_Config {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext, BookDetailsActivity.class);
+                    Book book = new Book();
+                    Intent intent = new Intent(mContext, messageActivity.class);
                     intent.putExtra("key", key);
                     intent.putExtra("author", mAuthor.getText().toString());
                     intent.putExtra("title", mTitle.getText().toString());
                     intent.putExtra("category", mCategory.getText().toString());
                     intent.putExtra("isbn",mISBN.getText().toString());
-                    mContext.startActivity(intent);
+                    intent.putExtra("destinationUid",key);
+                    ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(v.getContext(),R.anim.fromright,R.anim.toleft);
+                    mContext.startActivity(intent,activityOptions.toBundle());
                 }
             });
 

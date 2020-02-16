@@ -65,10 +65,12 @@ public class SignUpActivity extends AppCompatActivity {
                                     if(id.getText().toString().contains("ms")) {
                                         book.setAuthor(name.getText().toString()); //+"학부모");
                                         book.setTitle(id.getText().toString());
+
                                         //book.setIsbn(.getText().toString());
                                         //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
 
                                         String uid = task.getResult().getUser().getUid();
+                                        book.setUid(uid);
                                         FirebaseDatabase.getInstance().getReference().child("teacher").child(uid).setValue(book);
                                         Intent intent = new Intent(SignUpActivity.this, MainStaffActivity.class);
                                         startActivity(intent);
@@ -81,6 +83,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
 
                                         String uid = task.getResult().getUser().getUid();
+                                        book.setUid(uid);
                                         FirebaseDatabase.getInstance().getReference().child("student").child(uid).setValue(book);
                                         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                         startActivity(intent);

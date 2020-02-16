@@ -5,15 +5,28 @@ public class Book {
     private String author;  // 학부모 예명
     private String isbn;    // 전화번호
     private String category_name; // 학생구분
+    private String uid;  // user ID
 
     public Book() {
     }
 
-    public Book(String title, String author, String isbn, String category_name) {
+
+
+    public Book(String title, String author, String isbn, String category_name,String uid) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
         this.category_name = category_name;
+        this.uid = uid;
+
+
+    }
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getTitle() {

@@ -3,6 +3,7 @@ package com.e.bookarraytest;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +15,7 @@ import java.util.List;
 
 public class FirebaseDatabaseHelper {
     private FirebaseDatabase mDatabase;
+    private FirebaseAuth mAuth;
     private DatabaseReference mReference;
     private List<Book> books = new ArrayList<>();
 
@@ -25,7 +27,12 @@ public class FirebaseDatabaseHelper {
     }
     public FirebaseDatabaseHelper(){
         mDatabase = FirebaseDatabase.getInstance();
-        mReference = mDatabase.getReference("books");
+        final String myId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        if(myId.contains("ms"))
+            mReference = mDatabase.getReference("student");
+        else
+            mReference = mDatabase.getReference("teacher");
     }
     public void readBooks(final DataStatus dataStatus){
         mReference.addValueEventListener(new ValueEventListener() {
