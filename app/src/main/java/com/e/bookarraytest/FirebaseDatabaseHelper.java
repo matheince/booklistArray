@@ -25,14 +25,20 @@ public class FirebaseDatabaseHelper {
         void DataIsUpdated();
         void DataIsDeleted();
     }
+    private boolean IsTeacherOrStudent;
     public FirebaseDatabaseHelper(){
         mDatabase = FirebaseDatabase.getInstance();
         final String myId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+       /* if(myId.equals("ms")){
+            IsTeacherOrStudent = true;  //선생님
+        }
+        else{
+            IsTeacherOrStudent = false; //학생
+        }*/
 
-        if(myId.contains("ms"))
-            mReference = mDatabase.getReference("student");
-        else
-            mReference = mDatabase.getReference("teacher");
+
+        mReference = mDatabase.getReference("mathience");
+
     }
     public void readBooks(final DataStatus dataStatus){
         mReference.addValueEventListener(new ValueEventListener() {
@@ -43,7 +49,11 @@ public class FirebaseDatabaseHelper {
                 for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                     keys.add(keyNode.getKey());
                     Book book = keyNode.getValue(Book.class);
+                    //if(book.getTitle().equals("ms")) {
+                      //  mDatabase.getReference("chatrooms");
+                    //}
                     books.add(book);
+
                 }
                 dataStatus.DataIsLoaded(books, keys);
             }

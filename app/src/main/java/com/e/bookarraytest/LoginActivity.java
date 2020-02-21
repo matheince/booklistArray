@@ -34,9 +34,12 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class LoginActivity extends AppCompatActivity {
     private Button login;
-    private Button signUp;
+    private Button signup;
     private EditText id;
     private EditText password;
+    private String name;
+
+
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private FirebaseAuth mauth;
     private FirebaseAuth.AuthStateListener mauthStateListener; // 로그인 여부
@@ -46,91 +49,105 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference mReference;
     private List<Book> books = new ArrayList<>();
     private RecyclerView mRecyclerView;
+    private String splash_background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+
+        FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        splash_background = mFirebaseRemoteConfig.getString(getString(R.string.rc_buttn_backgroundcolor));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            getWindow().setStatusBarColor(Color.parseColor(splash_background));
+        }
+
         mauth = FirebaseAuth.getInstance();
 
         mauth.signOut();
 
         String splash_button = mFirebaseRemoteConfig.getString(getString(R.string.rc_buttn_backgroundcolor));
 
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.parseColor(splash_button));
-        }*/
+        signup = (Button)findViewById(R.id.signupButton);
+
         id = (EditText) findViewById(R.id.emailEdittext);
         password = (EditText) findViewById(R.id.passwordEdittext);
+        //name = findViewById(R.id.signupActivity_editText_nickname);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_books);
 
         login = (Button) findViewById(R.id.emailloginButton);
-        signUp = (Button) findViewById(R.id.signupButton);
+
         login.setBackgroundColor(Color.parseColor(splash_button));
-        signUp.setBackgroundColor(Color.parseColor(splash_button));
-
-        final String myId = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        new FirebaseDatabaseHelper().readBooks(new FirebaseDatabaseHelper.DataStatus() {
-            @Override
-            public void DataIsLoaded(List<Book> books, List<String> keys) {
-                findViewById(R.id.loading_books_pb).setVisibility(View.GONE);
-                new Recyclerview_Config().setConfig(mRecyclerView, LoginActivity.this, books, keys);
-                if (myId.contains("ms"))
-                    mReference = mDatabase.getReference("student");
-                else
-                    mReference = mDatabase.getReference("teacher");
-            }
-
-            @Override
-            public void DataIsInserted() {
-
-            }
-
-            @Override
-            public void DataIsUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
-
-            }
-        });
-        
-
 
 
 
         mprogressbar = (ProgressBar)findViewById(R.id.progressBar);
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isEmpty()) return;
                 inProgress(true);
-                mauth.signInWithEmailAndPassword(id.getText().toString() + "@mathience.com", password.getText().toString())
-                        .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                            @Override
-                            public void onSuccess(AuthResult authResult) {
-                                Toast.makeText(LoginActivity.this, "정상적으로 로그인되었습니다.", Toast.LENGTH_LONG).show();
-                                if (id.getText().toString().contains("ms")) {
 
+               // final String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                FirebaseAuth.getInstance().signInWithEmailAndPassword(id.getText().toString()+"@mathience.com", password.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            //}
+                        //})
+
+                        //.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+
+                          //  @Override
+                           // public void onSuccess(AuthResult authResult) {
+                                Log.d("leejung","여기까지");
+                                Toast.makeText(LoginActivity.this, "정상적으로 로그인되었습니다.", Toast.LENGTH_LONG).show();
+                                Book book = new Book();
+
+                                if(id.getText().toString().contains("ms")) {
+                                    book.setAuthor(name);
+                                    book.setTitle(id.getText().toString());
+                                    book.setIsbn("선생님");
+                                    //book.setCategory_name("W");
+
+
+                                    //book.setIsbn(.getText().toString());
+                                    //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
+
+                                    //String uid = task.getUser().getUid();
+                                    //book.setUid(uid);
+                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(book);
                                     Intent intent = new Intent(LoginActivity.this, BookListActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finish();
-                                    return;
-                                } else {
-                                    Intent intent = new Intent(LoginActivity.this, BookListActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                    finish();
-                                    return;
                                 }
+                                else{
+                                    book.setAuthor(name);
+                                    book.setTitle(id.getText().toString());
+                                    book.setIsbn("학생");
+                                    //book.setCategory_name("W");
+
+
+                                    //book.setIsbn(.getText().toString());
+                                    //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
+
+                                    //String uid = authResult.getUser().getUid();
+                                    //book.setUid(uid);
+                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(book);
+                                    Intent intent = new Intent(LoginActivity.this, BookListActivity.class);
+                                    startActivity(intent);
+                                    finish();
+
+                                }
+
+
                             }
+
+
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -141,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+        signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
@@ -156,13 +173,13 @@ public class LoginActivity extends AppCompatActivity {
         if(x){
             mprogressbar.setVisibility(View.VISIBLE);
             login.setEnabled((false));
-            signUp.setEnabled(false);
+            signup.setEnabled(false);
 
         }else
         {
             mprogressbar.setVisibility(View.GONE);
             login.setEnabled((true));
-            signUp.setEnabled(true);
+            signup.setEnabled(true);
         }
     }
     private boolean isEmpty(){

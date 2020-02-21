@@ -1,11 +1,14 @@
 package com.e.bookarraytest;
 
+import java.util.List;
+
 public class Book {
     private String title; // 학생이름
     private String author;  // 학부모 예명
     private String isbn;    // 전화번호
     private String category_name; // 학생구분
     private String uid;  // user ID
+    //private List<String> hrteacher;
 
     public Book() {
     }
@@ -18,6 +21,8 @@ public class Book {
         this.isbn = isbn;
         this.category_name = category_name;
         this.uid = uid;
+      //  this.hrteacher;
+
 
 
     }
@@ -32,6 +37,14 @@ public class Book {
     public String getTitle() {
         return title;
     }
+
+    //public void setHrteacher(List<String> hrteacher) {
+    //    this.hrteacher = hrteacher;
+    //}
+
+    //public String getHrteacher() {
+    //    return hrteacher;
+    //}
 
     public void setTitle(String title) {
         this.title = title;
