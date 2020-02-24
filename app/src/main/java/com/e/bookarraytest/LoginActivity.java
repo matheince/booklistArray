@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.e.bookarraytest.model.UserModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.passwordEdittext);
         //name = findViewById(R.id.signupActivity_editText_nickname);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_books);
+        mRecyclerView = (RecyclerView) findViewById(R.id.peoplefragment_recyclerview);
 
         login = (Button) findViewById(R.id.emailloginButton);
 
@@ -91,62 +92,20 @@ public class LoginActivity extends AppCompatActivity {
                 if (isEmpty()) return;
                 inProgress(true);
 
-               // final String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(id.getText().toString()+"@mathience.com", password.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                            //}
-                        //})
-
-                        //.addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-
-                          //  @Override
-                           // public void onSuccess(AuthResult authResult) {
-                                Log.d("leejung","여기까지");
                                 Toast.makeText(LoginActivity.this, "정상적으로 로그인되었습니다.", Toast.LENGTH_LONG).show();
-                                Book book = new Book();
+                                UserModel userModel = new UserModel();
 
-                                if(id.getText().toString().contains("ms")) {
-                                    book.setAuthor(name);
-                                    book.setTitle(id.getText().toString());
-                                    book.setIsbn("선생님");
-                                    //book.setCategory_name("W");
-
-
-                                    //book.setIsbn(.getText().toString());
-                                    //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
-
-                                    //String uid = task.getUser().getUid();
-                                    //book.setUid(uid);
-                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(book);
-                                    Intent intent = new Intent(LoginActivity.this, BookListActivity.class);
+                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(userModel);
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
-                                }
-                                else{
-                                    book.setAuthor(name);
-                                    book.setTitle(id.getText().toString());
-                                    book.setIsbn("학생");
-                                    //book.setCategory_name("W");
-
-
-                                    //book.setIsbn(.getText().toString());
-                                    //book.setCategory_name(mBook_Categories_spinner.getSelectedItem().toString());
-
-                                    //String uid = authResult.getUser().getUid();
-                                    //book.setUid(uid);
-                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(book);
-                                    Intent intent = new Intent(LoginActivity.this, BookListActivity.class);
-                                    startActivity(intent);
-                                    finish();
-
-                                }
-
-
-                            }
-
+                             }
 
                         }).addOnFailureListener(new OnFailureListener() {
                     @Override

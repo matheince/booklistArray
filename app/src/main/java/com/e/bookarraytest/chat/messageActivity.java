@@ -1,4 +1,4 @@
-package com.e.bookarraytest;
+package com.e.bookarraytest.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.e.bookarraytest.Book;
+import com.e.bookarraytest.R;
 import com.e.bookarraytest.model.ChatModel;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,29 +27,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class messageActivity extends AppCompatActivity {
     private String destinationUid;
     private Button button;
     private EditText editText;
-    private String uid;
+    private String currentUid;
     private String chatRoomUid;
 
     private RecyclerView recyclerView;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        currentUid = FirebaseAuth.getInstance().getCurrentUser().getUid();   // 채팅을 요구하는 아이디
         destinationUid = getIntent().getStringExtra("destinationUid"); // 채팅을 당하는 아이디
         button = (Button)findViewById(R.id.messageActivity_button);
         editText = (EditText)findViewById(R.id.messageActivity_editText);
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 채팅을 요구하는 아이디
+
 
         recyclerView = (RecyclerView)findViewById(R.id.messageActivity_recyclerview);
 
@@ -55,11 +53,11 @@ public class messageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ChatModel chatModel = new ChatModel();
-                chatModel.users.put(uid,true);
+                chatModel.users.put(currentUid,true);
                 chatModel.users.put(destinationUid,true);
 
                 if(chatRoomUid==null){
-                    button.setEnabled(false);
+                  button.setEnabled(false);
 
                     FirebaseDatabase.getInstance().getReference().child("chatrooms").push().setValue(chatModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
@@ -70,8 +68,8 @@ public class messageActivity extends AppCompatActivity {
                 }
                 else {
                     ChatModel.Comment comment = new ChatModel.Comment();
-                    comment.uid = uid;
-                    comment.message = editText.getText().toString();
+                    comment.currentUid = currentUid;
+                    comment.message =  editText.getText().toString();
                     FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment);
                 }
             }
@@ -79,7 +77,7 @@ public class messageActivity extends AppCompatActivity {
         checkChatRoo();
     }
     void checkChatRoo(){
-        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/"+currentUid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot item : dataSnapshot.getChildren()){
@@ -89,7 +87,6 @@ public class messageActivity extends AppCompatActivity {
                         button.setEnabled(true);
                         recyclerView.setLayoutManager(new LinearLayoutManager(messageActivity.this));
                         recyclerView.setAdapter(new RecyclerViewAdapter());
-
 
                     }
                 }
@@ -108,11 +105,15 @@ public class messageActivity extends AppCompatActivity {
 
         public RecyclerViewAdapter() {
             comments = new ArrayList<>();
-            FirebaseDatabase.getInstance().getReference().child("users").child(destinationUid).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    books = dataSnapshot.getValue(Book.class);
-                    getMessageList();
+                    comments.clear();
+                    for(DataSnapshot item : dataSnapshot.getChildren()){
+                        comments.add(item.getValue(ChatModel.Comment.class));
+                    }
+                    notifyDataSetChanged();
+                    //getMessageList();
                 }
 
                 @Override
@@ -153,7 +154,7 @@ public class messageActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
             MessageViewHolder messageViewHolder = ((MessageViewHolder)holder);
-            if(comments.get(position).uid.equals(uid)){
+            if(comments.get(position).currentUid.equals(currentUid)){
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);

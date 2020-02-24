@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.e.bookarraytest.chat.messageActivity;
+
 import java.util.List;
 
 public class Recyclerview_Config {
