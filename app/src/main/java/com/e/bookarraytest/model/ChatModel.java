@@ -10,7 +10,7 @@ public class ChatModel {
     public Map<String, Comment> comments = new HashMap<>();
 
     public static class Comment {
-        public String currentUid;
+        public String SenderUid;
         public String message;
     }
 }

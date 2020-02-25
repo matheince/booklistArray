@@ -49,7 +49,7 @@ public class people_fragment extends Fragment {
             userModels = new ArrayList<>();
             final String myUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            FirebaseDatabase.getInstance().getReference().child("mathience").addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("mathience").child("users").addValueEventListener(new ValueEventListener() {
 
                 @Override
 

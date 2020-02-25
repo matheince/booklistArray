@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                                         userModel.email = email.getText().toString();
                                         userModel.username = name.getText().toString();
                                         userModel.currentUid = currentUid;
-                                        FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        FirebaseDatabase.getInstance().getReference().child("mathience").child("users").push().setValue(userModel).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Intent intent = new Intent(SignUpActivity.this, MainActivity.class);

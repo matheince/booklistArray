@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mauth.signOut();
 
-        String splash_button = mFirebaseRemoteConfig.getString(getString(R.string.rc_buttn_backgroundcolor));
+        String splash_background = mFirebaseRemoteConfig.getString(getString(R.string.rc_buttn_backgroundcolor));
 
         signup = (Button)findViewById(R.id.signupButton);
 
@@ -80,7 +80,8 @@ public class LoginActivity extends AppCompatActivity {
 
         login = (Button) findViewById(R.id.emailloginButton);
 
-        login.setBackgroundColor(Color.parseColor(splash_button));
+        login.setBackgroundColor(Color.parseColor(splash_background));
+        signup.setBackgroundColor(Color.parseColor(splash_background));
 
 
 
@@ -90,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isEmpty()) return;
-                inProgress(true);
+                inProgress(false);
 
 
                 FirebaseAuth.getInstance().signInWithEmailAndPassword(id.getText().toString()+"@mathience.com", password.getText().toString())
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "정상적으로 로그인되었습니다.", Toast.LENGTH_LONG).show();
                                 UserModel userModel = new UserModel();
 
-                                    FirebaseDatabase.getInstance().getReference().child("mathience").push().setValue(userModel);
+                                    FirebaseDatabase.getInstance().getReference().child("mathience").child("users").push().setValue(userModel);
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -131,14 +132,14 @@ public class LoginActivity extends AppCompatActivity {
     private void inProgress(boolean x){
         if(x){
             mprogressbar.setVisibility(View.VISIBLE);
-            login.setEnabled((false));
-            signup.setEnabled(false);
+            login.setEnabled((x));
+            signup.setEnabled(x);
 
         }else
         {
             mprogressbar.setVisibility(View.GONE);
-            login.setEnabled((true));
-            signup.setEnabled(true);
+            login.setEnabled((x));
+            signup.setEnabled(x);
         }
     }
     private boolean isEmpty(){
