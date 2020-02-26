@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -174,7 +175,8 @@ public class messageActivity extends AppCompatActivity {
             MessageViewHolder messageViewHolder = ((MessageViewHolder)holder);
             //내가 보낸 메세지
             if(comments.get(position).SenderUid.equals(currentUid)){
-                messageViewHolder.textview_name.setText(userModel.username);
+                messageViewHolder.textview_name.setText(userModel.email);
+               // Log.d("leegun",userModel.email);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.rightbubble);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
@@ -183,10 +185,11 @@ public class messageActivity extends AppCompatActivity {
             }
             //상대방이 보낸 메세지
             else {
-                messageViewHolder.textview_name.setText(userModel.username);
+                messageViewHolder.textview_name.setText(userModel.email);
+               // Log.d("leegun",userModel.email);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
-                messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
+                messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
                 messageViewHolder.textView_message.setTextSize(20);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }
@@ -213,8 +216,8 @@ public class messageActivity extends AppCompatActivity {
                 textView_message = (TextView)view.findViewById(R.id.messageItem_textview_message);
                 textview_name = (TextView)view.findViewById(R.id.messageItem_textview_name);
                 imageView_profile = (ImageView)view.findViewById(R.id.messageItem_imageview_profile);
-                linearLayout_destination = (LinearLayout)view.findViewById(R.id.messageItem_lineralayout_destination);
-                linearLayout_main =(LinearLayout)view.findViewById(R.id.messageItem_lineralayout_main);
+                linearLayout_destination = (LinearLayout)view.findViewById(R.id.messageItem_linearlayout_destination);
+                linearLayout_main =(LinearLayout)view.findViewById(R.id.messageItem_linearlayout_main);
 
             }
         }
